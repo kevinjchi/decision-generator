@@ -21,7 +21,7 @@ var IndecisionApp = function (_React$Component) {
         _this.handleAddOption = _this.handleAddOption.bind(_this);
 
         _this.state = {
-            options: ['Thing one', 'Thing two', 'Thing four']
+            options: props.options
         };
         return _this;
     }
@@ -81,6 +81,10 @@ var IndecisionApp = function (_React$Component) {
 
     return IndecisionApp;
 }(React.Component);
+
+IndecisionApp.defaultProps = {
+    options: []
+};
 
 var Header = function Header(props) {
     return React.createElement(
@@ -250,4 +254,4 @@ var AddOption = function (_React$Component2) {
 }(React.Component);
 
 var appRoot = document.getElementById('app');
-ReactDOM.render(React.createElement(IndecisionApp, null), appRoot);
+ReactDOM.render(React.createElement(IndecisionApp, { options: ['Devils den', 'district'] }), appRoot);
