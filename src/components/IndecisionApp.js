@@ -1,22 +1,50 @@
 import React from 'react';
-import AddOption from './components/AddOption';
+import AddOption from './AddOption';
 import Action from './Action';
 import Header from './Header';
 import Options from './Options';
 
-
+/** 
+ * New class syntax to remove contructor -- see babel syntax
+ * Pull the state out of contructor
+ * convert all event handlers to class properties (arrow functions)
+ * delete constructor completetly
+ * start with class properties end with method
+ * */ 
 
 export default class IndecisionApp extends React.Component {
-    constructor(props) {
-        super(props);
-        this.handleDeleteOptions = this.handleDeleteOptions.bind(this);
-        this.handlePick = this.handlePick.bind(this);
-        this.handleAddOption = this.handleAddOption.bind(this);
-        this.handleDeleteOptionSingular = this.handleDeleteOptionSingular.bind(this);
-        this.state = {
-            options: props.options
-        };
-    }
+    state = {
+        options: []
+    };
+    handleDeleteOptions = () => {
+        this.setState(() => ({ options: [] }));
+    };
+    handleDeleteOptionSingular = (optionToRemove) => {
+        this.setState((prevState) => ({
+            options: prevState.options.filter((option) => {
+                return optionToRemove !== option;
+            })
+        }));
+    };
+    handlePick = () => {
+        const randomNum = Math.floor(Math.random() * this.state.options.length);
+        const option = this.state.options[randomNum];
+        alert(option);
+    };
+    handleAddOption = (option) => {
+        if (!option) {
+            return 'Enter valid value to add item';
+        } else if (this.state.options.indexOf(option) > - 1) {
+            return 'This option already exists';
+        } 
+        this.setState((prevState) => {
+            // prevState.options.push(option); dont push original array, not good
+            return {
+                options: prevState.options.concat([option])
+            }
+        });
+    };
+
     // LifeCycle components
     componentDidMount() {
         try {
@@ -39,35 +67,6 @@ export default class IndecisionApp extends React.Component {
     }
     componentWillUnmount() {
         console.log('componentWillUnMount');
-    }
-    handleDeleteOptions() {
-        this.setState(() => ({ options: [] }));
-    }
-    handleDeleteOptionSingular(optionToRemove) {
-        this.setState((prevState) => ({
-            options: prevState.options.filter((option) => {
-                return optionToRemove !== option;
-            })
-        }));
-    }
-    handlePick() {
-        const randomNum = Math.floor(Math.random() * this.state.options.length);
-        const option = this.state.options[randomNum];
-        alert(option);
-    }
-    handleAddOption(option) {
-        if (!option) {
-            return 'Enter valid value to add item';
-        } else if (this.state.options.indexOf(option) > - 1) {
-            return 'This option already exists';
-        } 
-        this.setState((prevState) => {
-            // prevState.options.push(option); dont push original array, not good
-            return {
-                options: prevState.options.concat([option])
-            }
-        });
-
     }
     render() {
         const title = 'title';
