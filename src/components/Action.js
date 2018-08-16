@@ -7,7 +7,7 @@ const Action = (props) => {
                 className="big-button" 
                 onClick={props.handlePick} 
                 disabled={!props.hasOptions}>
-                what to do?
+                Generate
             </button>
         </div>
     );
