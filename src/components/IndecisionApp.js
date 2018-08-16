@@ -77,8 +77,8 @@ export default class IndecisionApp extends React.Component {
         console.log('componentWillUnMount');
     }
     render() {
-        const title = 'title';
-        const subtitle = 'subtitle';
+        const title = 'Random Option Generator';
+        const subtitle = 'Are your choice undecided, try me!';
 
         return (
             <div>
@@ -89,7 +89,7 @@ export default class IndecisionApp extends React.Component {
                     <Action 
                     hasOptions={this.state.options.length > 0} 
                     handlePick={this.handlePick}
-                    />
+                     />
                     <div className="widget">
                         <Options 
                         options={this.state.options}
